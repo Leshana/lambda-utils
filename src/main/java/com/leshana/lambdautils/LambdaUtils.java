@@ -27,8 +27,8 @@ import java.util.stream.Stream;
  * way of casting method references or inline lambda expressions to the standard functional interfaces. Casting is
  * useful in case you want to use the default methods on the standard interfaces. Consider;
  *
- * <code>stream.filter(((Prediate<MyClass>)MyClass::isOrange).and(MyClass::isRound))</code> vs.
- * <code>stream.filter(predicate(MyClass::isOrange).and(MyClass::isRound))</code>
+ * <pre>stream.filter(((Prediate&lt;MyClass&gt;)MyClass::isOrange).and(MyClass::isRound))</pre> vs.
+ * <pre>stream.filter(predicate(MyClass::isOrange).and(MyClass::isRound))</pre>
  *
  * @author Leshana
  */
@@ -87,8 +87,8 @@ public class LambdaUtils {
      *
      * @param <T> the type of element to extract collection from (for flatMap() this is the type of the stream)
      * @param <R> the type of the collection contents.
-     * @param collectionExtractor
-     * @return
+     * @param collectionExtractor the function used to extract the collection.
+     * @return a function that returns a stream of the collection returned by {@code collectionExtractor}
      */
     public static <T, R> Function<T, Stream<R>> streamOf(Function<? super T, ? extends Collection<R>> collectionExtractor) {
         return (T input) -> {
@@ -118,7 +118,7 @@ public class LambdaUtils {
     }
 
     /**
-     * The the {@code double}-consuming primitive type specialization of {@link #testing(Function, Predicate).
+     * The the {@code double}-consuming primitive type specialization of {@link #testing(Function, Predicate)}.
      *
      * @param <T> the type of element to be tested
      * @param keyExtractor the function used to extract the key
@@ -133,7 +133,7 @@ public class LambdaUtils {
     }
 
     /**
-     * The the {@code int}-consuming primitive type specialization of {@link #testing(Function, Predicate).
+     * The the {@code int}-consuming primitive type specialization of {@link #testing(Function, Predicate)}.
      *
      * @param <T> the type of element to be tested
      * @param keyExtractor the function used to extract the key
@@ -148,7 +148,7 @@ public class LambdaUtils {
     }
 
     /**
-     * The the {@code long}-consuming primitive type specialization of {@link #testing(Function, Predicate).
+     * The the {@code long}-consuming primitive type specialization of {@link #testing(Function, Predicate)}.
      *
      * @param <T> the type of element to be tested
      * @param keyExtractor the function used to extract the key
@@ -170,7 +170,7 @@ public class LambdaUtils {
      *
      * @param <T> the type of input arguments to the merge function
      * @return a merge function which always throw {@code IllegalStateException}
-     * @see Copied from {@link Collectors} because it is private.
+     * @see java.util.stream.Collectors#throwingMerger() 
      */
     public static <T> BinaryOperator<T> throwingMerger() {
         return (u, v) -> {
@@ -182,7 +182,7 @@ public class LambdaUtils {
      * Convenience method which calls {@link Collectors#toMap(Function, Function, BinaryOperator, Supplier)} but with
      * the default merge behavior as {@link Collectors#toMap(Function, Function)}.
      *
-     * @apiNote This is useful for collecting in sorted maps with a custom comparator.
+     *  This is useful for collecting in sorted maps with a custom comparator.
      *
      * @param <T> the type of the input elements
      * @param <K> the output type of the key mapping function
@@ -190,8 +190,6 @@ public class LambdaUtils {
      * @param <M> the type of the resulting {@code Map}
      * @param keyMapper a mapping function to produce keys
      * @param valueMapper a mapping function to produce values
-     * @param mergeFunction a merge function, used to resolve collisions between values associated with the same key, as
-     * supplied to {@link Map#merge(Object, Object, BiFunction)}
      * @param mapSupplier a function which returns a new, empty {@code Map} into which the results will be inserted
      * @return Return value of Collectors.ToMap()
      */
