@@ -5,8 +5,11 @@
     <artifactId>lambda-utils</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+    
+    <name>Lambda Utils</name>
     <description>Utility methods for dealing with lambdas and functional interfaces.</description>
     <url>https://github.com/Leshana/lambda-utils</url>
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -26,6 +29,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
@@ -34,6 +38,10 @@
             <comments>A business-friendly OSS license</comments>
         </license>
     </licenses>
+    <scm>
+        <connection>scm:git:https://github.com/Leshana/lambda-utils.git</connection>
+        <url>https://github.com/Leshana/lambda-utils</url>
+    </scm>
     <developers>
         <developer>
             <name>Leshana</name>
@@ -43,6 +51,17 @@
             </roles>
         </developer>
     </developers>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
     
     <profiles>
         <profile>
@@ -71,6 +90,20 @@
                                 <id>attach-javadocs</id>
                                 <goals>
                                     <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.5</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
                                 </goals>
                             </execution>
                         </executions>
